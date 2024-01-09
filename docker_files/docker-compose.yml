@@ -1,0 +1,31 @@
+version: "3"
+services:
+  scoutsevents-api:
+    image: "welchie99/scoutsevents:${API_VERSION}"
+    ports:
+      - "8080:8080"
+    environment:
+      - API_VERSION=${API_VERSION}
+      - UI_VERSION=${UI_VERSION}
+    healthcheck:
+      test: netstat -lan | grep 8080 | wc -l
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - mynet
+  sensor-ui:
+    image: "welchie99/scoutsevents-ui:${UI_VERSION}"
+    ports:
+      - "80:3000"
+    healthcheck:
+      test: netstat -lan | grep 3000 | wc -l
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - mynet
+
+networks:
+  mynet:
+
