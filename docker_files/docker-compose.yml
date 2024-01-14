@@ -25,6 +25,18 @@ services:
       retries: 3
     networks:
       - mynet
+  dynamodb-local:
+    image: "amazon/dynamodb-local:${DYNAMODB_VERSION}"
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: netstat -lan | grep 8000 | wc -l
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - mynet
+
 
 networks:
   mynet:
