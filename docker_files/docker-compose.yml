@@ -14,7 +14,7 @@ services:
       retries: 3
     networks:
       - mynet
-  sensor-ui:
+  scoutsevents-ui:
     image: "welchie99/scoutsevents-ui:${UI_VERSION}"
     ports:
       - "80:3000"
