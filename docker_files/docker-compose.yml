@@ -3,7 +3,7 @@ services:
   scoutsevents-api:
     image: "welchie99/scoutsevents:${API_VERSION}"
     ports:
-      - "8090:8080"
+      - "8080:8080"
     environment:
       - API_VERSION=${API_VERSION}
       - UI_VERSION=${UI_VERSION}
