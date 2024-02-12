@@ -3,7 +3,7 @@ services:
   scoutsevents-api:
     image: "welchie99/scoutsevents:${API_VERSION}"
     ports:
-      - "8080:8080"
+      - "8090:8080"
     environment:
       - API_VERSION=${API_VERSION}
       - UI_VERSION=${UI_VERSION}
@@ -26,18 +26,16 @@ services:
     networks:
       - mynet
   dynamodb-local:
-    image: "amazon/dynamodb-local:${DYNAMODB_VERSION}"
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-local
     ports:
       - "8000:8000"
-    healthcheck:
-      test: netstat -lan | grep 8000 | wc -l
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
-    networks:
-      - mynet
-
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
 
 networks:
   mynet:
+
 
